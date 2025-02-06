@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     private IUserRepository userRepository;
 
-    @PostMapping("/create-user")
+    @PostMapping
     public ResponseEntity<String> createUser(@RequestBody UserModel userModel) {
         List<UserModel> listUser = this.userRepository.findByUsername(userModel.getUsername());
 
