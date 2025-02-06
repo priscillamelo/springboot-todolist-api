@@ -1,6 +1,7 @@
 package br.com.priscillamelo.todolist.task;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/tasks")
@@ -20,9 +22,18 @@ public class TaskController {
     @Autowired
     private ITaskRepository taskRepository;
 
-    @PostMapping("/create-task")
+    @GetMapping
+    public List<TaskModel> getTasks(HttpServletRequest request) {
+        UUID idUser = (UUID) request.getAttribute("idUser");
+        System.out.println(idUser);
+        List<TaskModel> listTasks = this.taskRepository.findByIdUser(idUser);
+        return listTasks;
+    }
+
+    @PostMapping
     public ResponseEntity<String> createTask(@RequestBody TaskModel taskModel, HttpServletRequest request) {
         UUID idUser = (UUID) request.getAttribute("idUser");
+        System.out.println(idUser);
         taskModel.setIdUser(idUser);
         LocalDateTime currentDate = LocalDateTime.now();
         boolean validStartDate = currentDate.isBefore(taskModel.getStartAt());
