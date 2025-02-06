@@ -14,6 +14,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import at.favre.lib.crypto.bcrypt.BCrypt.Result;
 import br.com.priscillamelo.todolist.user.IUserRepository;
 import br.com.priscillamelo.todolist.user.UserModel;
+import org.springframework.lang.NonNull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,12 +26,13 @@ public class FilterTaskAuth extends OncePerRequestFilter {
     private IUserRepository userRepository;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
         String servletPath = request.getServletPath();
 
-        if (servletPath.equals("/tasks/create-task")) {
+        if (servletPath.equals("/tasks")) {
             String auth = request.getHeader("Authorization");
             String authEncoder = auth.substring("Basic".length()).trim();
 
