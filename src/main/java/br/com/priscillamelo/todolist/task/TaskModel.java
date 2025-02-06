@@ -16,29 +16,29 @@ import lombok.Data;
 public class TaskModel {
     @Id
     @GeneratedValue(generator = "UUID")
-    @Column(name = "id_task_table")
+    @Column(name = "id_tasks_table")
     private UUID id;
 
-    @Column(name = "idUser_task_table")
+    @Column(name = "idUser_tasks_table")
     private UUID idUser;
 
-    @Column(name = "description_task_table")
+    @Column(name = "description_tasks_table")
     private String description;
 
-    @Column(name = "title_task_table", length = 50)
+    @Column(name = "title_tasks_table", length = 50)
     private String title;
 
-    @Column(name = "startAt_task_table")
+    @Column(name = "startAt_tasks_table")
     private LocalDateTime startAt;
 
-    @Column(name = "endAt_task_table")
+    @Column(name = "endAt_tasks_table")
     private LocalDateTime endAt;
 
-    @Column(name = "priority_task_table")
+    @Column(name = "priority_tasks_table")
     private String priority;
 
     @CreationTimestamp
-    @Column(name = "createAt_task_table")
+    @Column(name = "createAt_tasks_table")
     private LocalDateTime createdAt;
 
 }
